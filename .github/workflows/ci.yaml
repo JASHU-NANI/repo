@@ -1,26 +1,20 @@
-name: GitHub Actions Demo
+name: GitHub Actions Failure Demo
 
-# 1. Choose what triggers the runner (e.g., when you push code)
 on: [push]
 
 jobs:
-  # 2. Define your job name
   build-and-test:
-    # 3. Specify the free standard runner (ubuntu-latest)
     runs-on: ubuntu-latest
 
-    # 4. List the steps the runner should take
     steps:
-      # Step 1: Download your repository code onto the runner
       - name: Check out repository code
         uses: actions/checkout@v4
 
-      # Step 2: Run a terminal command
-      - name: Run a one-line script
-        run: echo "Hello World! The free runner is working."
+      - name: Run a successful step
+        run: echo "This step passes perfectly."
 
-      # Step 3: Run multiple terminal commands
-      - name: Run multi-line scripts
+      # This step will intentionally break your workflow
+      - name: Force an intentional failure
         run: |
-          echo "Current directory:"
-          pwd
+          echo "Simulating a broken test or deployment failure..."
+          exit 1
