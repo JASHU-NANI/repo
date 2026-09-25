@@ -1,0 +1,26 @@
+name: GitHub Actions Demo
+
+# 1. Choose what triggers the runner (e.g., when you push code)
+on: [push]
+
+jobs:
+  # 2. Define your job name
+  build-and-test:
+    # 3. Specify the free standard runner (ubuntu-latest)
+    runs-on: ubuntu-latest
+
+    # 4. List the steps the runner should take
+    steps:
+      # Step 1: Download your repository code onto the runner
+      - name: Check out repository code
+        uses: actions/checkout@v4
+
+      # Step 2: Run a terminal command
+      - name: Run a one-line script
+        run: echo "Hello World! The free runner is working."
+
+      # Step 3: Run multiple terminal commands
+      - name: Run multi-line scripts
+        run: |
+          echo "Current directory:"
+          pwd
