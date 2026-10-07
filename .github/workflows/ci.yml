@@ -1,0 +1,48 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  actions: read
+  contents: read
+  pull-requests: write
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: "Compile Java"
+        run: |
+          cat > Hello.java <<'EOF'
+          public class Hello {
+              public static void main(String[] args) {
+                  System.out.println("Hello"
+              }
+          }
+          EOF
+          javac Hello.java
+
+      - name: "Run Node test"
+        run: |
+          node -e "
+          const assert = require('assert');
+          function total(items) { return items.reduce((a, b) => a + b, 0); }
+          assert.strictEqual(total([1, 2, 3]), 6);
+          "
+
+  ai-analysis:
+    needs: [ci]
+    if: ${{ failure() }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run AI DevOps Agent
+        uses: JASHU-NANI/AI-DevOps-Agent@main
+        with:
+          repository: ${{ github.repository }}
+          run_id: ${{ github.run_id }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          gemini_api_key: ${{ secrets.GEMINI_API_KEY }}
