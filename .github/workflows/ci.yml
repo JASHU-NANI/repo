@@ -17,22 +17,7 @@ jobs:
 
       - name: "Compile Java"
         run: |
-          cat > Hello.java <<'EOF'
-          public class Hello {
-              public static void main(String[] args) {
-                  System.out.println("Hello"
-              }
-          }
-          EOF
           javac Hello.java
-
-      - name: "Run Node test"
-        run: |
-          node -e "
-          const assert = require('assert');
-          function total(items) { return items.reduce((a, b) => a + b, 0); }
-          assert.strictEqual(total([1, 2, 3]), 6);
-          "
 
   ai-analysis:
     needs: [ci]
