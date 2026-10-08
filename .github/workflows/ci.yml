@@ -17,7 +17,7 @@ jobs:
 
       - name: "Compile Java"
         run: |
-          javac Hello.java
+          javac OrderService.java
 
   ai-analysis:
     needs: [ci]
