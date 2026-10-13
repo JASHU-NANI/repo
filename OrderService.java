@@ -39,7 +39,7 @@ public class OrderService {
 
     private static String getCustomerName() {
 
-        String firstName = "Jashwanth"
+        String firstName = "Jaswanth"
         String lastName = "Kumar";
 
         return firstName + " " + lastname;
